@@ -23,7 +23,7 @@ local LocalPlayer = Players.LocalPlayer
 local InstanceObjects = {}
 
 -- // Custom getboundingbox function
-getboundingbox = getboundingbox or function(objects)
+local getboundingbox = getboundingbox or function(objects)
     -- // Only consider the first object
     local Object = objects[1]
 
@@ -200,6 +200,7 @@ do
             -- // Update
             Object:Update(Corners)
         end
+        return nil
     end
 
     -- // Destroy all
