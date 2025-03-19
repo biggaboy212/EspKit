@@ -42,9 +42,9 @@ elseif A<0 then y,z,A=y-A,z-A,0 end return h(g(y<3.1306684425e-3 and 12.92*y or
 *z^(0.4166666666666667)-0.055,0,1),g(A<3.1306684425e-3 and 12.92*A or 1.055*A^(
 0.4166666666666667)-0.055,0,1))end end local g={}do function g.GetCurrentCamera(
 )return b.CurrentCamera end function g.ApplyVector2(h,i)assert(typeof(h)==
-'Vector2','invalid type for Vector (expected Vector2)')assert(typeof(i)==
-'function','invalid type for f (expected function)')return Vector2.new(i(h.X),i(
-h.Y))end function g.CombineTables(h,i)h=h or{}i=i or{}for j,k in pairs(i)do
+'Vector2','invalid type for Vector. (expected Vector2)')assert(typeof(i)==
+'function','invalid type for f. (expected function)')return Vector2.new(i(h.X),
+i(h.Y))end function g.CombineTables(h,i)h=h or{}i=i or{}for j,k in pairs(i)do
 local l=h[j]or false if(typeof(k)=='table'and typeof(l)=='table')then g.
 CombineTables(l,k)continue end h[j]=k end return h end function g.DeepCopy(h)
 assert(typeof(h)=='table','invalid type for Original (expected table)')local i={

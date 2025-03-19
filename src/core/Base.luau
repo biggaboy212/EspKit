@@ -3,10 +3,10 @@
 
 --[[
     Information:
-    Contains the classes needed for the ESP. Additional logic is needed to make it functional
+    Contains the classes needed for the ESP. Additional logic is needed to make it function.
 
     Note:
-    - This has been ported to work for the old Drawing system and therefore is missing outlines
+    - This has been ported to work for the old Drawing system and therefore is missing outlines.
 ]]
 
 -- // Services
@@ -115,8 +115,8 @@ do
     -- // Applies operation to Vector2
     function Utilities.ApplyVector2(Vector, f)
         -- // Asserts
-        assert(typeof(Vector) == "Vector2", "invalid type for Vector (expected Vector2)")
-        assert(typeof(f) == "function", "invalid type for f (expected function)")
+        assert(typeof(Vector) == "Vector2", "invalid type for Vector. (expected Vector2)")
+        assert(typeof(f) == "function", "invalid type for f. (expected function)")
 
         -- // Returns
         return Vector2.new(f(Vector.X), f(Vector.Y))
