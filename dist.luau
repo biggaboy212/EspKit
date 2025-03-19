@@ -4,7 +4,10 @@
 --!optimize 2
 
 --[[
-    EspKit | Distribution | LuaU
+    EspKit | Pre-Alpha Distribution | LuaU
+
+    Base by Stefanuk12
+    Fixed and improved for framework use by biggaboy212
 
     This file was built with DarkLua, it is not intended for manual editing.
 --]]
@@ -202,4 +205,79 @@ Properties)local t,u,v=r.Enabled and q.OnScreen,g.ConvertV3toV2(q.Corners),{1,5,
 z)end table.insert(x,u[w==4 and 8 or(w+v[3])])g.SetDrawingProperties(self.
 Objects[w],g.CombineTables(s[w],{Points=x,Visible=t}))end end end local q={
 Utilities=g,Base=j,BoxSquare=k,Tracer=l,Header=m,Healthbar=n,OffArrow=o,Box3D=p}
-getgenv().RESP_BASE=q return q end end return a.load'a'
+return q end function a.b()local b,c,d=a.load'a',game:GetService'Players',game:
+GetService'RunService'local e,f,g,h=c.LocalPlayer,{},getboundingbox or function(
+e)local f=e[1]if(f:IsA'Model')then return f:GetBoundingBox()end return f.CFrame,
+f.Size end,{}h.__index=h h.__type='InstanceObject'do function h.new(i,j)j=j or
+false assert(table.find({'Instance','nil'},typeof(i)),
+'invalid type for Object (expecting Instance or nil)')assert(i and(i:IsA
+'BasePart'or i:IsA'Model')or not i,
+[[invalid type for Object (expecting BasePart or Model or nil)]])assert(typeof(j
+)=='boolean','invalid type for NoInsert (expecting boolean)')local k=
+setmetatable({},h)k.Corners=nil k.Instance=i k.Objects={}if(not j)then table.
+insert(f,k)end return k end function h:Get(i,j)assert(typeof(i)=='string',
+'invalid type for Type (expecting string)')assert(table.find({'nil','string'},
+typeof(j)),'invalid type for SubType (expecting string or nil)')local k={}for l,
+m in ipairs(self.Objects)do if(m.__type==i and(j==m.Data.Type or not j))then
+table.insert(k,m)end end return k end function h:Has(i,j)assert(typeof(i)==
+'string','invalid type for Type (expecting string)')assert(table.find({'nil',
+'string'},typeof(j)),'invalid type for SubType (expecting string or nil)')local
+k=self:Get(i,j)if(i=='Header')then local l={}for m,n in ipairs(k)do local o=n.
+Data.Type if(table.find(l,o))then return true end table.insert(l,o)end return
+false end return#k>0 end function h:Add(i,j,k)j=j or{}k=k or{}assert(typeof(i)==
+'string','invalid type for Type (expecting string)')assert(typeof(j)=='table',
+'invalid type for Data (expected table)')assert(typeof(k)=='table',
+'invalid type for Properties (expected table)')local l=b[i]assert(l,
+'type does not exist - invalid object type')local m=l.new(j,k)table.insert(self.
+Objects,m)if(i=='Header')then m.Data.Offset=function()return self:HeaderOffset(m
+)end elseif(i=='Healthbar')then m.Data.Offset=function()return self:
+HealthbarOffset(m)end end return m end function h:Render()if(#self.Objects==0 or
+not self.Instance)then return false end local i=self.Instance local j,k=g{i}
+local l=b.Utilities.CalculateCorners(j,k)self.Corners=l for m,n in ipairs(self.
+Objects)do local o=n.Data local p=o.Type if(n.__type=='Header')then if(p==
+'Weapon')then o.Value=o.Weapon or self:Weapon()end if(p=='Name')then o.Value=o.
+Name or self:Name()end if(p=='Distance')then o.Value=o.Distance or self:
+Distance()end end if(n.__type=='Healthbar')then local q=o.Health or{self:Health(
+)}o.Value=q[1]o.MaxValue=q[2]end n:Update(l)end return nil end function h:
+Destroy()for i=#self.Objects,1,-1 do self.Objects[i]:Destroy()table.remove(self.
+Objects,i)end end function h:HeaderOffset(i)assert(typeof(i)=='table'and i.
+__type=='Header','invalid type for HeaderObject (expecting Header)')local j,k,l=
+Vector2.new(0,2),i.Data,self:Get'Header'local m,n=k.Mounts,k.Mounts[k.Type]for o
+=#l,1,-1 do local p=l[o]if(m[p.Data.Type]~=n)then table.remove(l,o)end end local
+o=table.find(l,i)if(not o)then return j end for p=1,o do j=j+l[p].Objects.Main.
+TextBounds*Vector2.yAxis end return j end function h:HealthbarOffset(i)assert(
+typeof(i)=='table'and i.__type=='Healthbar',
+'invalid type for HealthbarObject (expecting Healthbar)')local j,k=Vector2.new(2
+,0),self:Get'Healthbar'local l=table.find(k,i)if(not l)then return j end local m
+=self.Corners local n=(m.BottomRight-m.TopLeft)*Vector2.xAxis*(0.1)for o=1,l do
+j=j+n+(k[o].Objects.Main.Thickness*Vector2.xAxis)end return j end function h:
+Name()return self.Instance.Name end function h:Weapon()return'N/A'end function h
+:Health()if not(self.Instance and self.Instance.Parent)then return 100,100 end
+local i=self.Instance:FindFirstChildWhichIsA'Humanoid'if(not i)then return 100,
+100 end return i.Health,i.MaxHealth end function h:Distance()return e:
+DistanceFromCharacter(self.Instance:GetPivot().Position)end end local i={}i.
+__index=i i.__type='PlayerManager'do function i.new(j,k)k=k or false assert(
+typeof(j)=='Instance'and j:IsA'Player',
+'invalid type for Player (expecting Player)')assert(typeof(k)=='boolean',
+'invalid type for NoInsert (expecting boolean)')local l=setmetatable({},i)l.
+Player=j l.InstanceObject=h.new(nil,true)if(not k)then table.insert(f,l)end
+return l end function i:Character()return self.Player.Character end function i:
+Add(...)return self.InstanceObject:Add(...)end function i:Render()self.
+InstanceObject.Instance=self:Character()if(not self.InstanceObject)then return
+end self.InstanceObject:Render()end function i:Destroy()if(self.InstanceObject)
+then self.InstanceObject:Destroy()self.InstanceObject=nil end end end local j={}
+j.__index=j j.__type='PlayersManager'do function j.new()local k=setmetatable({},
+j)k.Managers={}return k end function j:Add(...)local k={}for l,m in ipairs(self.
+Managers)do table.insert(k,m:Add(...))end return k end function j:OnPlayerAdded(
+k)assert(typeof(k)=='Instance'and k:IsA'Player',
+'invalid type for Player (expecting Player)')table.insert(self.Managers,i.new(k)
+)end function j:Destroy()if(self.PlayerAddedConnection)then self.
+PlayerAddedConnection:Disconnect()end for k=#self.Managers,1,-1 do self.Managers
+[k]:Destroy()table.remove(self.Managers,k)end end function j:
+InitialiseConnections()self.PlayerAddedConnection=c.PlayerAdded:Connect(function
+(k)self:OnPlayerAdded(k)end)end function j:Initialise()self:Destroy()for k,l in
+ipairs(c:GetPlayers())do if(l==e)then continue end self:OnPlayerAdded(l)end self
+:InitialiseConnections()end end d:BindToRenderStep('R-ESP-Render',0,function(k)
+for l,m in ipairs(f)do m:Render(k)end end)local k={Base=b,InstanceObject=h,
+PlayerManager=i,PlayersManager=j,InstanceObjects=f}return k end end return a.
+load'b'

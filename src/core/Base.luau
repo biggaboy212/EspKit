@@ -1079,5 +1079,4 @@ local RESP_BASE = {
     OffArrow = OffArrow,
     Box3D = Box3D
 }
-getgenv().RESP_BASE = RESP_BASE
 return RESP_BASE

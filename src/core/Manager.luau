@@ -1,3 +1,5 @@
+--!nocheck
+
 --[[
     Information:
     This handles rendering the Base objects.
@@ -12,7 +14,7 @@
 ]]
 
 -- // Dependencies
-local Base = require("Base.luau")
+local Base = require("core/Base.luau")
 
 -- // Services
 local Players = game:GetService("Players")
@@ -468,5 +470,4 @@ local RESP_MANAGER = {
     PlayersManager = PlayersManager,
     InstanceObjects = InstanceObjects
 }
-getgenv().RESP_MANAGER = RESP_MANAGER
 return RESP_MANAGER
